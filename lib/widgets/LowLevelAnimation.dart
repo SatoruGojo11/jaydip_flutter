@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jaydip_flutter/main.dart';
 
 class AnimationinnormalwgApp extends StatefulWidget {
   const AnimationinnormalwgApp({Key? key}) : super(key: key);
