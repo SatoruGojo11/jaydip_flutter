@@ -68,7 +68,7 @@ class _AnimationinnormalwgAppState extends State<AnimationinnormalwgApp>
             ),
             ElevatedButton(
               onPressed: () {
-                  maincontroller!.repeat();
+                maincontroller!.repeat(reverse: true);
               },
               child: Text('Play'),
             ),
@@ -78,7 +78,6 @@ class _AnimationinnormalwgAppState extends State<AnimationinnormalwgApp>
               },
               child: Text('Pause'),
             ),
-
           ],
         ),
       ),
