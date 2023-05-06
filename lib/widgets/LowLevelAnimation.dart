@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jaydip_flutter/main.dart';
 
 class AnimationinnormalwgApp extends StatefulWidget {
   const AnimationinnormalwgApp({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class _AnimationinnormalwgAppState extends State<AnimationinnormalwgApp>
   Animation<double>? sizeanimation;
   Animation<Color?>? coloranimation;
 
+  bool play = true;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -22,11 +25,12 @@ class _AnimationinnormalwgAppState extends State<AnimationinnormalwgApp>
     maincontroller =
         AnimationController(vsync: this, duration: Duration(seconds: 2));
     designanimation =
-        CurvedAnimation(parent: maincontroller!, curve: Curves.bounceInOut);
+        CurvedAnimation(parent: maincontroller!, curve: Curves.easeInOut);
     sizeanimation =
         Tween<double>(begin: 100, end: 200).animate(designanimation!);
-    coloranimation = ColorTween(begin: Colors.amberAccent, end: Colors.deepOrange)
-        .animate(designanimation!);
+    coloranimation =
+        ColorTween(begin: Colors.amberAccent, end: Colors.deepOrange)
+            .animate(designanimation!);
 
     maincontroller!.addListener(() {
       setState(() {});
@@ -62,12 +66,19 @@ class _AnimationinnormalwgAppState extends State<AnimationinnormalwgApp>
                   : () => maincontroller!.reverse(),
               child: Text('Reverse'),
             ),
-            // ElevatedButton(
-            //   onPressed: maincontroller!.isCompleted
-            //       ? null
-            //       : () => maincontroller!.forward(),
-            //   child: Text('Play'),
-            // ),
+            ElevatedButton(
+              onPressed: () {
+                  maincontroller!.repeat();
+              },
+              child: Text('Play'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                maincontroller!.stop();
+              },
+              child: Text('Pause'),
+            ),
+
           ],
         ),
       ),
