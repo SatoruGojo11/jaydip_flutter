@@ -60,7 +60,7 @@ class _MakeownAnimatedWidgetAppState extends State<MakeownAnimatedWidgetApp>
                 child: Text('Loop Animation')),
             ElevatedButton(
                 onPressed: () => Mycontroller!.stop(),
-                child: Text('Reverse Animation')),
+                child: Text('Stop Animation')),
           ],
         ),
       ),
