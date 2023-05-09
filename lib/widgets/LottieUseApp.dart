@@ -41,21 +41,21 @@ class _LottieUseAppState extends State<LottieUseApp>
               alignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                    onPressed: () => Ltcontroller!.forward(),
-                    icon: Icon(Icons.skip_next)),
+                    onPressed: () => Ltcontroller!.reverse(),
+                    icon: Icon(Icons.skip_previous)),
                 IconButton(
                     onPressed: () {
                       setState(() {
                         play = !play;
-                        Ltcontroller!.isAnimating
+                        play
                             ? () => Ltcontroller!.stop()
                             : () => Ltcontroller!.repeat(reverse: true);
                       });
                     },
                     icon: Icon(play ? Icons.play_arrow : Icons.pause)),
                 IconButton(
-                    onPressed: () => Ltcontroller!.reverse(),
-                    icon: Icon(Icons.skip_previous)),
+                    onPressed: () => Ltcontroller!.forward(),
+                    icon: Icon(Icons.skip_next)),
               ],
             ),
           ],
