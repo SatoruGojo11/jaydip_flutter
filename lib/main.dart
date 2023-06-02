@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:jaydip_flutter/widgets/Videoplayer.dart';
-import 'package:jaydip_flutter/widgets/YoutubePlayerApp.dart';
+import 'package:jaydip_flutter/database/SheredPreference.dart';
 
 void main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: YoutubePlayerApp(),
+      home: SharedPreferenceUse(),
     ),
   );
 }
