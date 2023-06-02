@@ -42,7 +42,7 @@ class _SharedPreferenceUseState extends State<SharedPreferenceUse> {
   incrementCounter() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _counter = (prefs.getInt('counter') ?? 0 + 1);
+      _counter = (prefs.getInt('counter') ?? 0) + 1;
       prefs.setInt('counter', _counter);
     });
   }
