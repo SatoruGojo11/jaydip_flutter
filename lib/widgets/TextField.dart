@@ -8,7 +8,7 @@ class TFApp extends StatefulWidget {
 }
 
 class _TFAppState extends State<TFApp> {
-  var name = '';
+  // var name = '';
   TextEditingController uname = TextEditingController();
   TextEditingController emailid = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -106,6 +106,7 @@ class _TFAppState extends State<TFApp> {
           labelText: '$label',
           hintText: '$hint',
         ),
+
       ),
     );
     return form;

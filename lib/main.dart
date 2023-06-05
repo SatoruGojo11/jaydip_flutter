@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:jaydip_flutter/database/SheredPreference.dart';
+import 'package:jaydip_flutter/DatabaseTasks/SharedPreference/loginscreen.dart';
 
 void main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SharedPreferenceUse(),
+      home: LoginPageUsingSharedPref(),
+      /*theme: ThemeData(
+        scaffoldBackgroundColor: Colors.black87,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.amber,
+        ),
+      ),*/
     ),
   );
 }
