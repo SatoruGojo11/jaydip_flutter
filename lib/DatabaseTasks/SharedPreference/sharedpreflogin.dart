@@ -50,7 +50,7 @@ class _LoginPageUsingSharedPrefState extends State<LoginPageUsingSharedPref> {
                       ),
                     ),
                     inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp(r'^[a-z A-z]+$'))
+                      FilteringTextInputFormatter.allow(RegExp(r'^[a-zA-z]+$'))
                     ],
                     validator: (value) {
                       if (value!.isEmpty)
@@ -106,6 +106,7 @@ class _LoginPageUsingSharedPrefState extends State<LoginPageUsingSharedPref> {
                         ),
                       ),
                     ),
+                    keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(
@@ -122,18 +123,19 @@ class _LoginPageUsingSharedPrefState extends State<LoginPageUsingSharedPref> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    adddata();
+                    if (_data.currentState!.validate()) {
+                      adddata();
+                      setState(() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ShowdataScreen(),
+                          ),
+                        );
+                      });
+                    }
                   },
                   child: Text('Add Data'),
-                ),
-                ElevatedButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ShowdataScreen(),
-                    ),
-                  ),
-                  child: Text('Show Data Data'),
                 ),
               ],
             ),

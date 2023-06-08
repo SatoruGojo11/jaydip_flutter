@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:jaydip_flutter/DatabaseTasks/SharedPreference/loginscreen.dart';
+import 'DatabaseTasks/SharedPreference/sharedpreflogin.dart';
+import 'database/Sqlite/Sqlite.dart';
 
 void main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPageUsingSharedPref(),
+      home: SqliteUse(),
       /*theme: ThemeData(
         scaffoldBackgroundColor: Colors.black87,
         appBarTheme: AppBarTheme(
