@@ -1,6 +1,11 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:jaydip_flutter/DatabaseTasks/Sqlite/showdatasqlite.dart';
 import 'package:jaydip_flutter/main.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
 
 class LoginScreensqlite extends StatefulWidget {
   const LoginScreensqlite({super.key});
@@ -10,7 +15,7 @@ class LoginScreensqlite extends StatefulWidget {
 }
 
 class _LoginScreensqliteState extends State<LoginScreensqlite> {
-  var _data = GlobalKey<FormState>();
+  final _data = GlobalKey<FormState>();
   TextEditingController id = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
@@ -35,9 +40,7 @@ class _LoginScreensqliteState extends State<LoginScreensqlite> {
                   controller: id,
                   decoration: InputDecoration(
                     labelText: 'ID',
-                    labelStyle: TextStyle(color: Colors.red),
                     hintText: 'Enter Your Customer ID',
-                    hintStyle: TextStyle(color: Colors.red.withOpacity(0.8)),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.red,
@@ -63,9 +66,7 @@ class _LoginScreensqliteState extends State<LoginScreensqlite> {
                   controller: name,
                   decoration: InputDecoration(
                     labelText: 'Name',
-                    labelStyle: TextStyle(color: Colors.red),
                     hintText: 'Enter Your Name',
-                    hintStyle: TextStyle(color: Colors.red.withOpacity(0.8)),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.red,
@@ -91,9 +92,7 @@ class _LoginScreensqliteState extends State<LoginScreensqlite> {
                   controller: email,
                   decoration: InputDecoration(
                     labelText: 'Email id',
-                    labelStyle: TextStyle(color: Colors.red),
                     hintText: 'Enter Your Email id',
-                    hintStyle: TextStyle(color: Colors.red.withOpacity(0.8)),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.red,
@@ -101,6 +100,7 @@ class _LoginScreensqliteState extends State<LoginScreensqlite> {
                       ),
                     ),
                   ),
+                  keyboardType: TextInputType.emailAddress,
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(
                         RegExp(r'^[a-zA-z0-9@.]+$'))
@@ -119,9 +119,7 @@ class _LoginScreensqliteState extends State<LoginScreensqlite> {
                   controller: age,
                   decoration: InputDecoration(
                     labelText: 'Age',
-                    labelStyle: TextStyle(color: Colors.red),
                     hintText: 'Enter Your Age',
-                    hintStyle: TextStyle(color: Colors.red.withOpacity(0.8)),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.red,
@@ -129,6 +127,7 @@ class _LoginScreensqliteState extends State<LoginScreensqlite> {
                       ),
                     ),
                   ),
+                  keyboardType: TextInputType.number,
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'^[0-9]+$'))
                   ],
@@ -140,11 +139,100 @@ class _LoginScreensqliteState extends State<LoginScreensqlite> {
                   },
                 ),
               ),
-              ElevatedButton(onPressed: () {}, child: Text('Login'))
+              ElevatedButton(
+                onPressed: () async {
+                  if (_data.currentState!.validate()) {
+                    var i = await Localdatabase.instance.insertData({
+                      Localdatabase.clmid: id.text,
+                      Localdatabase.clmname: name.text,
+                      Localdatabase.clmemail: email.text,
+                      Localdatabase.clmage: age.text,
+                    });
+                    print(i);
+                    setState(() {});
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ShowdataSqlite(),
+                      ),
+                    );
+                  } else
+                    return null;
+                },
+                child: Text('Login'),
+              ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class Localdatabase {
+  Localdatabase._();
+
+  static final Localdatabase instance = Localdatabase._();
+
+  static const localdbmsname = 'User.db';
+  static const tablename = 'DETAIL';
+  static const clmid = 'Id';
+  static const clmname = 'Name';
+  static const clmemail = 'Email_id';
+  static const clmage = 'Age';
+
+  static Database? localdbms;
+
+  Future<Database> get getlocaldbms async {
+    if (localdbms != null) return localdbms!;
+
+    localdbms = await initlocaldbms();
+    return localdbms!;
+  }
+
+  initlocaldbms() async {
+    Directory localdir = await getApplicationDocumentsDirectory();
+    String path = join(localdir.path, localdbmsname);
+    await openDatabase(path, version: 1, onCreate: OnCreate);
+  }
+
+  OnCreate(Database db, int version) {
+    db.execute('''
+    CREATE TABLE $tablename(
+    $clmid INTEGER PRIMARY KEY,
+    $clmname TEXT NOT NULL,
+    $clmemail TEXT NOT NULL,
+    $clmage INTEGER NOT NULL
+    )''');
+  }
+
+  Future<int> insertData(Map<String, dynamic> data) async {
+    Database db = await instance.getlocaldbms;
+    return await db.insert(tablename, data);
+  }
+
+  Future<List<Map<String, dynamic>>> getAllData() async {
+    Database db = await instance.getlocaldbms;
+    return await db.query(tablename);
+  }
+
+  Future<int> updateData(Map<String, dynamic> data) async {
+    Database db = await instance.getlocaldbms;
+    int clmId = data[Localdatabase.clmid];
+    return await db.update(
+      tablename,
+      data,
+      where: '${Localdatabase.clmid}',
+      whereArgs: [clmId],
+    );
+  }
+
+  Future<int> deleteData(int id) async {
+    Database db = await instance.getlocaldbms;
+    return await db.delete(
+      tablename,
+      where: '$clmid',
+      whereArgs: [id],
     );
   }
 }

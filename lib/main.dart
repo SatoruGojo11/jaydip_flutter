@@ -1,21 +1,16 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:jaydip_flutter/database/Hive.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:path_provider/path_provider.dart';
+import 'DatabaseTasks/Sqlite/sqlitelogin.dart';
 
 void main() async {
   //This code is only for Hive database Use
-  WidgetsFlutterBinding.ensureInitialized();
+  /*WidgetsFlutterBinding.ensureInitialized();
   Directory directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);
-  await Hive.openBox<String>('Students');
+  await Hive.openBox<String>('Students');*/
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HiveUse(),
+      home: LoginScreensqlite(),
       /*theme: ThemeData(
         scaffoldBackgroundColor: Colors.black87,
         appBarTheme: AppBarTheme(

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:jaydip_flutter/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ShowdataScreen extends StatefulWidget {
-  const ShowdataScreen({super.key});
+class ShowdataScreensharedpref extends StatefulWidget {
+  const ShowdataScreensharedpref({super.key});
 
   @override
-  State<ShowdataScreen> createState() => _ShowdataScreenState();
+  State<ShowdataScreensharedpref> createState() => _ShowdataScreensharedprefState();
 }
 
-class _ShowdataScreenState extends State<ShowdataScreen> {
+class _ShowdataScreensharedprefState extends State<ShowdataScreensharedpref> {
   String customername = "";
   String customeremail = "";
   String customerpwd = "";

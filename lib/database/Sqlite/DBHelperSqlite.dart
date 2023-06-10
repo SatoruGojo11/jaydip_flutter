@@ -13,16 +13,16 @@ class Dbhelper {
   static const tablename = 'Info';
   static const clmid = 'ID';
   static const clmname = 'Name';
-  static const clmemail = 'Emailid';
+  static const clmemail = 'Email_id';
   static const clmage = 'Age';
 
-  static Database? database;
+  static Database? dbms;
 
   Future<Database> get getdatabase async {
-    if (Database != null) return database!;
+    if (dbms != null) return dbms!;
 
-    database = await initDatabase();
-    return database!;
+    dbms = await initDatabase();
+    return dbms!;
   }
 
   initDatabase() async {
@@ -54,11 +54,12 @@ class Dbhelper {
 
   Future<int> updateData(Map<String, dynamic> data) async {
     Database db = await instance.getdatabase;
+    int clmid = data[Dbhelper.clmid];
     return await db.update(
       tablename,
       data,
-      where: '$clmid = ?',
-      whereArgs: data[Dbhelper.clmid],
+      where: '${Dbhelper.clmid} =?',
+      whereArgs: [clmid],
     );
   }
 
@@ -66,7 +67,7 @@ class Dbhelper {
     Database db = await instance.getdatabase;
     return await db.delete(
       tablename,
-      where: '$clmid = ?',
+      where: '$clmid =?',
       whereArgs: [id],
     );
   }
