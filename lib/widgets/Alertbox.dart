@@ -12,13 +12,13 @@ class Alertview extends State<Alertapp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.redAccent,
+        // backgroundColor: Colors.redAccent,
         title: const Text(
           'Alert Box',
-          style: TextStyle(
-            fontSize: 25,
-            color: Colors.black,
-          ),
+          // style: TextStyle(
+          //   fontSize: 25,
+          //   color: Colors.black,
+          // ),
         ),
       ),
       body: Center(
@@ -30,7 +30,7 @@ class Alertview extends State<Alertapp> {
               'Alert Box',
               style: TextStyle(
                 fontSize: 20,
-                color: Colors.yellowAccent,
+                color: Colors.orange,
               ),
             ),
         ),

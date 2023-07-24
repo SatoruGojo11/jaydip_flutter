@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ContainerDesign extends StatelessWidget {
-  Random random = Random();
+  final random = Random();
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +226,6 @@ class ContainerDesign extends StatelessWidget {
 
   randomNumber()
   {
-    var number = (random.nextInt(10));
-    return number;
+    return random.nextInt(100);
   }
 }
